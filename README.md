@@ -61,7 +61,7 @@ Here is our promotion [video.](https://www.youtube.com/watch?v=mn_TUcbrk2E "prom
 
 > $ touch app/.env
 
-> $ echo 'GEOCODING_APIKEY=Your API Key' > app/.env
+> $ echo 'GEOCODING_APIKEY="Your API Key"' > app/.env
 ### [ 4 ] Strat Flask Server
 > python run.py
 
