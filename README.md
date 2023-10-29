@@ -33,7 +33,12 @@ Our project team hopes that with our solution, people in need will be able to fi
 
 ## SECTION 4 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
 
-[![Rental Recommendation Systems in Singapore](http://img.youtube.com/vi/dCElCLCmM4k/0.jpg)](https://youtu.be/dCElCLCmM4k?si=FR2ZjpwK_1keAHZv  "Rental Recommendation Systems in Singapore")
+### Business Presentation
+[![Rental Recommendation Systems in Singapore(Business)](http://img.youtube.com/vi/mn_TUcbrk2E/0.jpg)](https://www.youtube.com/watch?v=mn_TUcbrk2E  "Rental Recommendation Systems in Singapore")
+
+
+### Technical Presentation
+[![Rental Recommendation Systems in Singapore(Technical)](http://img.youtube.com/vi/dCElCLCmM4k/0.jpg)](https://youtu.be/dCElCLCmM4k?si=FR2ZjpwK_1keAHZv  "Rental Recommendation Systems in Singapore")
 
 Here is our promotion [video.](https://www.youtube.com/watch?v=mn_TUcbrk2E "promotion video")
 
@@ -43,27 +48,35 @@ Here is our promotion [video.](https://www.youtube.com/watch?v=mn_TUcbrk2E "prom
 
 
 ### [ 1 ] Clone Project Sourcecode
+```
+git clone https://github.com/Leelinze/Rental-Recommendation-Systems-in-Singapore-.git
+```
 
-> $ git clone https://github.com/Leelinze/Rental-Recommendation-Systems-in-Singapore-.git
 
 ### [ Optional ] Create New Conda Environment
-> $ conda create --name pjrent python=3.11
-
-> $ conda activate pjrent
+```
+conda create --name pjrent python=3.11
+conda activate pjrent
+```
 
 ### [ 2 ] Install Required Packages via pip
-> $ cd SystemCode/Rental-Recommendation-System-in-Singapore
-
-> $ conda install --file requirements.txt
+```
+cd SystemCode/Rental-Recommendation-System-in-Singapore
+conda install --file requirements.txt
+```
 
 ### [ 3 ] Set Your Google GeoCoding API Key
-> $ cd SystemCode/Rental-Recommendation-System-in-Singapore
+```
+cd SystemCode/Rental-Recommendation-System-in-Singapore
+touch app/.env
+echo 'GEOCODING_APIKEY="Your API Key"' > app/.env
+```
 
-> $ touch app/.env
-
-> $ echo 'GEOCODING_APIKEY="Your API Key"' > app/.env
 ### [ 4 ] Strat Flask Server
-> python run.py
+```
+python run.py
+```
+
 
 > **Go to URL using web browser** http://0.0.0.0:5000 or http://127.0.0.1:5000 or http://localhost:5000
 
