@@ -86,7 +86,7 @@ python run.py
 **Recommended Sections for Project Report / Paper:**
 - Executive Summary
 - Problem Description
-  - Problem Statement
+  - Problem Statements
   - Market research
   - Project scope
 - Project Solution
