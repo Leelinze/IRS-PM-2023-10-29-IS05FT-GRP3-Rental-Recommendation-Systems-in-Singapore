@@ -40,7 +40,6 @@ Our project team hopes that with our solution, people in need will be able to fi
 ### Technical Presentation
 [![Rental Recommendation Systems in Singapore(Technical)](http://img.youtube.com/vi/dCElCLCmM4k/0.jpg)](https://youtu.be/dCElCLCmM4k?si=FR2ZjpwK_1keAHZv  "Rental Recommendation Systems in Singapore")
 
-Here is our promotion [video.](https://www.youtube.com/watch?v=mn_TUcbrk2E "promotion video")
 
 ---
 
