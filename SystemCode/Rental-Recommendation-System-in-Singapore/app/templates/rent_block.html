@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rent_block</title>
+    <style>
+        /* 创建下拉菜单的样式 */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f5bba4;
+            min-width: 153px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .comment-form {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .comment-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function toggleCommentForm() {
+                var form = document.querySelector('.comment-form');
+                if (form.style.display === 'none' || form.style.display === '') {
+                    form.style.display = 'block';
+                } else {
+                    form.style.display = 'none';
+                }
+            }
+            window.toggleCommentForm = toggleCommentForm; // Expose to global scope
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+    <div class="card" style="background-color: antiquewhite;">
+        <div class="row ">
+            <div class="col-4">
+                <img class="card-img rounded w-100 img-fluid"  src="{{ rent.img_src }} " alt="{{ rent.img_src }} ">
+            </div>
+            <div class="col-8">
+                <div class="card-heading">
+                    <h3 class="card-title"><b>{{ rent.title }}</b></h3>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-5">
+                            <div class="row ">
+                                <div class="col-4 custom-box">{{ rent.facility_type }}</div>
+                                <div class="col-1"></div>
+                                <div class="col-6 custom-box">{{ rent.accommodation_info }}</div>
+                                <div class="col-1"></div>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="col-12 custom-box"> {{ rent.room_info }}</div>
+                            </div>
+                        </div>
+                    </div>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-9">
+                                <div class="row">   
+                                    <div class="col-3 custom-box dropdown" id="public_facilities_button">
+                                        Public Facilities
+                                        <div class="dropdown-content">
+                                            <div id="public_facilities_data">
+                                                {% for facility in rent.public_facilities %}
+                                                    <p>{{ facility }}</p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="col-1"></div>    
+                                    <div class="col-3 custom-box dropdown" id="cooking_facilities_button">
+                                        Cooking Facilities
+                                        <div class="dropdown-content">
+                                            <div id="cooking_facilities_data">
+                                                {% for facility in rent.cooking_facilities %}
+                                                    <p>{{ facility }}</p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-1"></div>     
+                                    <div class="col-3 custom-box dropdown" id="interior_facilities_button">
+                                        Interior Facilities
+                                        <div class="dropdown-content">
+                                            <div id="interior_facilities_data">
+                                                {% for facility in rent.interior_facilities %}
+                                                    <p>{{ facility }}</p>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1"></div>         
+                                </div>
+                            </div>
+                         
+                            <div class="col-3">
+                                <div class="col-10 custom-box dropdown" id="other_button_{{ rent.id }}">
+                                    Others
+                                    <div class="dropdown-content">
+                                        <div id="other_data">
+                                            {% for facility in rent.other_needs %}
+                                            <p>{{ facility }}</p>
+                                        {% endfor %}</div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                </div>
+                  
+                        <!-- <br> -->
+                        <div class="row">
+                            <h5 class="col-12">{{ rent.price }}</h5>
+                            <h6 class="col-12">{{ rent.distance_to_mrt }} </h6>
+                            <h6 class="col-12">{{ rent.mall_info }} </h6>
+                            <h6 class="col-12"><a href="{{rent.location_href}}" target="_blank">{{ rent.location_info }}</a></h6>
+                        </div>
+                    </div>      
+                </div>
+                <button type="button" onclick="toggleCommentForm()">Write a comment</button>
+
+                <!-- 隐藏的评论表单 -->
+                <div class="comment-form" style="display: none;">
+                    <h3>Write a comment</h3>
+                    <form method="post" action="{{ url_for('home_blueprint.get_comment', recomm_idx=recomm_idx) }}">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- 渲染评论字段 -->
+                        <div class="form-group">
+                            {{ form.comment.label(class="form-control-label") }}
+                            {{ form.comment(class="form-control", rows=3) }}
+                            {% if form.comment.errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.comment.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- 提交按钮 -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-100" style="background-color: white;">
+        <div class="row mb-4">
+    
+        </div>
+    </div>
+</div>
+</body>
+</html>
+    

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+        <link href="../static/plugin/ratingstar/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="../static/plugin/ratingstar/themes/krajee-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="../static/plugin/ratingstar/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+        <!--script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script-->
+        <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+        <script src="../static/plugin/ratingstar/js/star-rating.js" type="text/javascript"></script>
+        <script src="../static/plugin/ratingstar/themes/krajee-fas/theme.js" type="text/javascript"></script>
+        <script src="../static/plugin/ratingstar/themes/krajee-svg/theme.js" type="text/javascript"></script>
+        <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="../static/img/favicon.ico" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../static/css/styles.css" rel="stylesheet" />
+        <style>
+            .user-input-bar {
+               width: 50%; /* 定义宽度，根据需要调整 */
+               margin: 0 auto; /* 水平居中 */
+               background-color: #f0f0f0; /* 背景颜色 */
+               border: 1px solid #ccc; /* 边框 */
+               padding: 10px; /* 内边距 */
+               display: flex; /* 使用 Flex 布局 */
+               justify-content: center; /* 居中对齐条目 */
+               align-items: center; /* 垂直居中对齐条目 */
+            }
+            .wide-input {
+                width: 110px;
+            }
+           </style>
+           <title>Find your own space</title>
+    </head>
+    <body>
+        <div id="mainNav"></div>
+        <section class="page-section" id="contact">
+            <!--div class="container px-4 px-lg-5"-->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="text-center">
+                        <h2 class="mt-0">Renting Made Easy, Just for You.</h2>
+                        <hr class="divider" />
+                        <p class="text-muted mb-5">Please enter your requirements and preferences below.</p>
+                    </div>
+                </div>
+                <div>
+                    <form id="userin" method="post" action="">
+                        {{ form.csrf_token }}
+                        <div class="form-group row align-items-center justify-content-center">
+                            <div class ="col-1">
+                                <label for="minprice" class="col-form-label text-right">Min. Price:</label>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" name ="minprice" class="form-control" id="minprice">
+                                    <!--span class="input-group-text">----</span-->
+                            </div>
+                            <div class ="col-1">
+                                <label for="maxprice" class="col-form-label text-right">Max. Price:</label>
+                            </div>
+                            <div class="col-1">
+                                <input type="text" name ="maxprice" class="form-control" id="maxprice">
+                                    <!--span class="input-group-text">----</span-->
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center justify-content-center">
+                            <div class ="col-2">
+                                <label for="pricerating" class="col-form-label text-right">Importance for Price:</label>
+                            </div>
+                            <div class="col-3">
+                                <input id="pricerating" value="0" type="text" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.5 data-size="sm" title="" name="importance_p">
+                                <!-- <input type="hidden" id="importance_p" name="importance_p"> -->
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center justify-content-center">
+                            <div class ="col-1">
+                                <label for="location" class="col-2 col-form-label text-right">Location:</label>
+                            </div>
+                            <div class="col-3">
+                        
+                                <input type="text" name="location" class="form-control" id="location">   
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center justify-content-center">
+                            <div class ="col-2">
+                                <label for="locationrating" class="col-form-label text-right">Importance for Location:</label>
+                            </div>
+                            <div class="col-3">
+                                <input id="locationrating" value="" type="text" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.5 data-size="sm"
+                            title="" name="importance_l">
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center justify-content-center">
+                            <div class ="col-1">
+                                <label for="roomtype" class="col-2 col-form-label text-right">Roomtype:</label>
+                            </div>
+                            <div class="col-3">
+                                <select name="roomtype" class="form-control" id="roomtype" > 
+                                     <option value="" disabled selected></option>  
+                                     <option value="Entire home/apt">Entire home/apt(Retype min&max price in<br>the form of a block lease)</option>
+                                     <option value="Hotel room">Hotel room</option>
+                                     <option value="Private room">Private room</option>
+                                     <option value="Shared room">Shared room</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center justify-content-center">
+                            <div class ="col-2">
+                                <label for="typerating" class="col-form-label text-right">Importance for Roomtype:</label>
+                            </div>
+                            <div class="col-3">
+                                <input id="typerating" value="" type="text" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.5 data-size="sm"
+                            title="" name="importance_t">
+                            </div>
+                        </div>
+                        <input type="hidden" name="dayDifference" id="dayDifference" value="0">
+                        <div class="form-group row align-items-center justify-content-center">
+                            <label for="datepickerin" class="col-1 col-form-label text-right">Checkin Date:</label>
+                            <div class="col-1">
+                                <div class="input-daterange">
+                                    <input type="text" name="checkin" id="checkin" class="form-control wide-input" placeholder="Start" onchange="updateDayDifference()">
+                                </div>
+                            </div>
+                        
+                            <label for="datepickerout" class="col-1 col-form-label text-right">Checkout Date:</label>
+                            <div class="col-1">
+                                <div class="input-daterange">
+                                    <input type="text" name="checkout" id="checkout" class="form-control wide-input" placeholder="End" onchange="updateDayDifference()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container mt-5">
+                            <div class="text-center">
+                                <div class="dropdown">
+                                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary w-50 mx-auto" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Amenities
+                                    </a>
+                                    <div class="dropdown-menu w-50" aria-labelledby="dropdownMenuButton">
+                                        <h6 class="dropdown-header">Public facilities</h6>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-check ">
+                                                    <input class="form-check-input" type="checkbox" id="BBQ" name="public_facilities" value="BBQ">
+                                                    <label class="form-check-label" for="BBQ">BBQ</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="gym" name="public_facilities" value="gym">
+                                                    <label class="form-check-label" for="gym">Gym</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pool" name="public_facilities" value="pool">
+                                                    <label class="form-check-label" for="pool">Pool</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="backyard" name="public_facilities" value="backyard">
+                                                    <label class="form-check-label" for="backyard">Backyard</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header">Cooking facilities</h6>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <div class="form-check ">
+                                                    <input class="form-check-input" type="checkbox" id="kitchen" name="cooking_facilities" value="kitchen">
+                                                    <label class="form-check-label" for="kitchen">Kitchen</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="refrigerator" name="cooking_facilities" value="refrigerator">
+                                                    <label class="form-check-label" for="refrigerator">Refrigerator</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="microwave" name="cooking_facilities" value="microwave">
+                                                    <label class="form-check-label" for="microwave">Microwave</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="oven" name="cooking_facilities" value="oven">
+                                                    <label class="form-check-label" for="oven">Oven</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="stoven" name="cooking_facilities" value="stoven">
+                                                    <label class="form-check-label" for="stoven">Stoven</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header">Interior facilities</h6>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <div class="form-check ">
+                                                    <input class="form-check-input" type="checkbox" id="aircon" name="interior_facilities" value="aircon">
+                                                    <label class="form-check-label" for="aircon">Aircon</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="dryer" name="interior_facilities" value="dryer">
+                                                    <label class="form-check-label" for="dryer">Dryer</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="Wifi" name="interior_facilities" value="Wifi">
+                                                    <label class="form-check-label" for="Wifi">Wifi</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="TV" name="interior_facilities" value="TV">
+                                                    <label class="form-check-label" for="TV">TV</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="fan" name="interior_facilities" value="fan">
+                                                    <label class="form-check-label" for="fan">Fan</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header">Other needs</h6>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-check ">
+                                                    <input class="form-check-input" type="checkbox" id="pets" name="other_needs" value="pets">
+                                                    <label class="form-check-label" for="pets">Pets</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center justify-content-center">
+                                    <div class ="col-2">
+                                        <label for="amenitiesrating" class="col-form-label text-right">Importance for Amenities:</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <input id="amenitiesrating" value="" type="text" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.5 data-size="sm"
+                                    title="" name="importance_a">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-100" style="background-color: white;">
+                            <div class="row mb-4">
+
+                            </div>
+                        </div>
+                        <div class="text-center"> 
+                            <button type="submit" class="btn btn-primary"  id="SubmitButton">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <script>
+            function updateDayDifference() {
+              var checkinInput = document.getElementById("checkin");
+              var checkoutInput = document.getElementById("checkout");
+              var checkinDate = new Date(checkinInput.value);
+              var checkoutDate = new Date(checkoutInput.value);
+              var checkinDate1 = checkinDate.getTime();
+              var checkoutDate1 = checkoutDate.getTime();
+              var timeDiff = Math.abs(checkoutDate1 - checkinDate1);
+              var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
+              document.getElementById("dayDifference").value = dayDifference;
+            }
+          </script>          
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            fetch('/nav')
+            .then(response => response.text())
+            .then(data => {
+            document.getElementById("mainNav").innerHTML = data;
+              });
+                }
+            );
+            $(document).ready(function() {
+        var datepickerOptions = {
+            format: 'yyyy-mm-dd',
+            todayBtn: 'linked',
+            clearBtn: true,
+            autoclose: true,
+            multidate: 2,
+            orientation: "bottom"
+        };
+
+        $('#checkin').datepicker(datepickerOptions).on('show', function(e) {
+            e.preventDefault();
+        });
+        
+        $('#checkout').datepicker(datepickerOptions).on('show', function(e) {
+            e.preventDefault();
+        });
+    });
+            jQuery(document).ready(function () {
+                $("#input-21f").rating({
+                    starCaptions: function (val) {
+                        if (val < 3) {
+                            return val;
+                        } else {
+                            return 'high';
+                        }
+                    },
+                    starCaptionClasses: function (val) {
+                        if (val < 3) {
+                            return 'label label-danger';
+                        } else {
+                            return 'label label-success';
+                        }
+                    },
+                    hoverOnClear: false
+                });
+                var $inp = $('#rating-input');
+    
+                $inp.rating({
+                    min: 0,
+                    max: 5,
+                    step: 1,
+                    size: 'lg',
+                    showClear: false
+                });
+    
+                $('#btn-rating-input').on('click', function () {
+                    $inp.rating('refresh', {
+                        showClear: true,
+                        disabled: !$inp.attr('disabled')
+                    });
+                });
+    
+    
+                $('.btn-danger').on('click', function () {
+                    $("#kartik").rating('destroy');
+                });
+    
+                $('.btn-success').on('click', function () {
+                    $("#kartik").rating('create');
+                });
+    
+                $inp.on('rating.change', function () {
+                    alert($('#rating-input').val());
+                });
+    
+    
+                $('.rb-rating').rating({
+                    'showCaption': true,
+                    'stars': '3',
+                    'min': '0',
+                    'max': '3',
+                    'step': '1',
+                    'size': 'xs',
+                    'starCaptions': {0: 'status:nix', 1: 'status:wackelt', 2: 'status:geht', 3: 'status:laeuft'}
+                });
+                $("#input-21c").rating({
+                    min: 0, max: 8, step: 0.5, size: "xl", stars: "8"
+                });
+                $("#pricerating").rating();
+                $("#rating_changer").on("change", function() {
+                    if (this.value == "") {
+                         $("#pricerating").rating("clear");
+                    } else { 
+                      $("#pricerating").rating("update", this.value); 
+                     }
+                });
+                $("#locationrating").rating();
+                  // trap the select change event to execute a rating method
+                $("#l_rating_changer").on("change", function() {
+                    if (this.value == "") {
+                        $("#locationrating").rating("clear");
+                    } else { 
+                    $("#locationrating").rating("update", this.value); 
+                    }
+                });
+                $("#typerating").rating();
+                  // trap the select change event to execute a rating method
+                $("#t_rating_changer").on("change", function() {
+                    if (this.value == "") {
+                        $("#typerating").rating("clear");
+                    } else { 
+                        $("##typerating").rating("update", this.value); 
+                    }
+                });  
+                $("#amenitiesrating").rating();
+                  // trap the select change event to execute a rating method
+                $("#a_rating_changer").on("change", function() {
+                    if (this.value == "") {
+                        $("#amenitiesrating").rating("clear");
+                    } else { 
+                        $("##amenitiesrating").rating("update", this.value); 
+                    }
+                }); 
+            });
+            jQuery(document).ready(function(){ 
+                function handleFormSubmission(formData) {
+                    var minprice = document.getElementById("minprice").value;
+                    var maxprice = document.getElementById("maxprice").value;
+                    var location = document.getElementById("location").value;
+                    var startdate = document.getElementById("checkin").value;
+                    var enddate = document.getElementById("checkout").value;
+                    var roomtype = document.getElementById("roomtype").value;
+                    var input1 = $("input[name='importance_p']").val();
+                    var input2 = $("input[name='importance_l']").val();
+                    var input3 = $("input[name='importance_d']").val();
+                    var checkinInput = document.getElementById("checkin");
+                    var checkoutInput = document.getElementById("checkout");
+                    var checkinDate = new Date(checkinInput.value);
+                    var checkoutDate = new Date(checkoutInput.value);
+                    var checkinDate1 = checkinDate.getTime();
+                    var checkoutDate1 = checkoutDate.getTime();
+                    var timeDiff = Math.abs(checkoutDate1 - checkinDate1);
+                    var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    $("#dayDifference").val(dayDifference);
+                    if (minprice === "" || maxprice === "" || location === "" || startdate === "" || enddate === "" || roomtype === "" ) {
+                        alert("Please finish all the blanks!");
+                    }
+                    // else if(input1==input2 || input2==input3 || input1==input3){
+                    //             alert("Please ensure that importance values are different!")     
+                    //         }
+                    // else if(minprice>maxprice){
+                    //     alert("Please type in correct price range!")
+                    // }
+                    else if(dayDifference < 92){
+                        alert("Please ensure that the stay is at least 92 days.");
+                        
+                    }    // 验证输入是否满足条件
+                    else {
+                            // 如果验证通过，执行 AJAX 请求
+                        $.ajax({
+                            url: '/submit_data',
+                            type: 'POST',
+                            data: formData,
+                            success: function(response) {
+                                window.location.href = '/recomm';
+                            },
+                            error: function(error) {
+                                    // 处理请求错误
+                            }
+                        });
+                    } 
+                }
+                
+                $("#userin").off('submit').submit(function(e) {
+                    e.preventDefault();
+                    var serializedData = $(this).serialize();
+                    var p_ratingValue = $("#pricerating").val(); 
+                    var l_ratingValue = $("#locationrating").val();
+                    var t_ratingValue = $("#typerating").val();
+                    var a_ratingValue = $("#amenitiesrating").val();
+                    var formData = $(this).serialize(); 
+                    formData += "&p_rating=" + p_ratingValue;
+                    formData += "&l_rating=" + l_ratingValue;
+                    formData += "&t_rating=" + t_ratingValue;
+                    formData += "&a_rating=" + a_ratingValue;
+
+                    //formData += "&daydifference=" + dayDifference
+                    handleFormSubmission(formData);
+                    console.log("Serialized Data: ",formData);
+                });
+                
+        });
+          </script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+          <!-- SimpleLightbox plugin JS-->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+          <!-- Core theme JS-->
+          <script src="../static/js/scripts.js"></script>
+          <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+          <!-- * *                               SB Forms JS                               * *-->
+          <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+          <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/signup.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <title>Find your place</title>
+</head>
+<body>
+    <section class="form my-4 mx-5">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-lg-5">
+                    <img src="../static/img/login2.png" class="img-fluid" alt="image not found">
+                </div>
+                <div class="col-lg-7 px-5 pt-5">
+                <h1 class="font-weight-bold py-3">Sign Up</h1>
+                <h4>Sign Up your account</h4>
+                    <form id="signup" method="post" action="">
+                        {{ form.csrf_token }}
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="text" id="username" name="username" placeholder="Enter your name" class="form-control my-3 p-3">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="email" placeholder="Enter your email" class="form-control my-3 p-3">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="password" id="password" name="password" placeholder="********" class="form-control my-3 p-3">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" class="form-control my-3 p-3">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <button type="submit" class="btn1" id="signupbutton" name="signupbutton">Sign Up</button>
+                            </div>
+                        </div>
+                        <p>
+                            Do you have an account ?<a href="/login"> Login here.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+
+jQuery(document).ready(function(){ 
+                function handleFormSubmission(formData) {
+                    var username = document.getElementById("username").value;
+                    var password = document.getElementById("password").value;
+                    var confirmPassword = document.getElementById("confirmPassword").value;
+                    if (password !== confirmPassword){
+                        alert("Please the confirmPassword the same as the Password")
+                    }else{
+                        $.ajax({
+                            url: '/collect_data',
+                            type: 'POST',
+                            data: formData,
+                            success: function(response) {
+                                window.location.href = '/login';
+                            },
+                            error: function(error) {
+                                    // 处理请求错误
+                            }
+                        });
+                    }
+                }
+                $("#signup").submit(function(e) {
+                    e.preventDefault();
+                    var serializedData = $(this).serialize();
+                    var formData = $(this).serialize(); 
+                    handleFormSubmission(formData);
+                    console.log("Serialized Data: ",formData);
+                });
+            })
+</script>
+
+
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/popper.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
